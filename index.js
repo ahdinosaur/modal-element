@@ -23,7 +23,13 @@ module.exports = function modalElement (contents) {
   function didClickOut (e) {
     var source = e.target
     while (source.parentNode) {
-      if (source === modal) {
+      // HACK (@ahdinosaur)
+      // clicking on the modal after a
+      // re-render was not working with
+      // `source === modal`
+      // for some unknown reason.
+      // this works for now... :)
+      if (source.className === 'modal') {
         return true
       }
       source = source.parentNode
